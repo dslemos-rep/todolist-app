@@ -1,18 +1,14 @@
 import express from 'express';
-import pool from './db.js';
 import dotenv from "dotenv";
+import taskRouter from './src/routes/task.routes.js';
+import { errorHandler } from './src/middlewares/error.middleware.js';
 dotenv.config();
 const app = express();
-
+app.use(express.json());
+app.use("/api/v1/tasks", taskRouter);
+app.use(errorHandler);
 app.get("/", async (req, res) => {
-  try {
-    const result = await pool.query('select * from task');
-    res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  }
-  res.send("Welcome to the TodoList app!!");
+  return res.send("Welcome to the TodoList app!!");
 });
 
 app.listen(process.env.PORT || 5500, () => {
