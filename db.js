@@ -12,7 +12,9 @@ const pool = new Pool({
 
 try {
   const client = await pool.connect();
-  console.log("Connect to PostgreSQL");
+  if (process.env.NODE_ENV !== "test") {
+    console.log("Connect to PostgreSQL");
+  }
   client.release();
 } catch (err) {
   console.error("Database connection error:", err);

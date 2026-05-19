@@ -14,7 +14,6 @@ export const getTask = async (req, res, next) => {
   try {
     const { id } = req.params;
     if (!id || isNaN(id)) throw new AppError("Invalid task id", 400);
-    console.log(id, isNaN(id))
     const result = await pool.query('select * from task where id = $1', [id]);
     if (result.rows.length === 0) throw new AppError("Task not found", 404);
     return res.json({ message: "Task fetched", task: result.rows[0] });
