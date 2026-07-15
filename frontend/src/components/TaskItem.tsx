@@ -4,22 +4,23 @@ import "./TaskItem.css";
 
 type Props = {
   task: Task;
+  setTaskToUpdate: any;
+  handleDelete: (id: number) => void;
 };
 
-export function TaskItem({ task }: Props) {
+export function TaskItem({ task, setTaskToUpdate, handleDelete }: Props) {
   return (
     <article className="task-card">
       <div className="task-card-header">
         <div>
           <h3>{task.title}</h3>
-
-          <span className={`status ${task.status}`}>
-            {task.status.replace("_", " ")}
-          </span>
         </div>
-
-        <span className="task-id">
-          #{task.id}
+        <span className={`status ${task.status}`}>
+          {task?.status?.replace("_", " ")}
+        </span>
+        <span className="functions">
+          <button onClick={() => setTaskToUpdate(task)}>e</button>
+          <button onClick={() => handleDelete(task.id)}>d</button>
         </span>
       </div>
 

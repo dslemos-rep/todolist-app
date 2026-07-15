@@ -23,10 +23,12 @@
   font-size: 1.05rem;
 }
 
-.tasks-section {
-  margin-top: 3rem;
+.show-taskform-button {
+  width: 600px;
+  height: 40px;
+  font-size: 18pt;
+  background-color: #29d;
+  border-radius: 7px;
 }
 
-.tasks-section h2 {
-  margin-bottom: 1.5rem;
-}
+

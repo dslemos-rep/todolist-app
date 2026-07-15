@@ -1,32 +1,35 @@
-import { useEffect, useState } from "react"
+import type { Task, TaskData } from "@/types/Task.js";
 import { TaskItem } from "./TaskItem.jsx"
-import { getTasks } from "../services/taskApi.js";
-import type { Task } from "../types/Task.js";
+import type { Dispatch, SetStateAction } from "react";
 
-export function TaskList() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null)
-  useEffect(() => {
-    const loadTasks = async () => {
-      try {
-        setLoading(true);
-        const data = await getTasks();
-        setTasks(data.tasks);
-      } catch (err) {
-        setError("Failed to load tasks");
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadTasks();
-  }, []);
+type TaskList = {
+  tasks: Task[];
+  loading: boolean;
+  error: string | null;
+  setTaskToUpdate: Dispatch<SetStateAction<TaskData | null>>;
+  handleDelete: (id: number) => Promise<void>;
+}
+
+export function TaskList({ tasks, loading, error, setTaskToUpdate, handleDelete }: TaskList) {
+  if (loading) {
+    return <p>Loading tasks...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (tasks.length === 0) {
+    return <p>No tasks yet.</p>;
+  }
   return (
     <div className="task-list">
       {tasks.map((task) => (
         <TaskItem
           key={task.id}
           task={task}
+          setTaskToUpdate={setTaskToUpdate}
+          handleDelete={handleDelete}
         />
       ))}
     </div>

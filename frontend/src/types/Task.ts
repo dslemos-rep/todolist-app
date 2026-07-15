@@ -12,12 +12,7 @@ export type Task = {
   updated_at: string;
 };
 
-export type CreateTaskData = {
-  title: string;
-  description: string;
-  status: TaskStatus;
-
-  ends_at: string | null;
+//Apenas campos editáveis pelo usuário
+export type TaskData = Omit<Task, 'id' | 'created_at' | 'updated_at'> & {
+  id: number | null;
 };
-
-export type UpdateTaskData = Partial<CreateTaskData>;

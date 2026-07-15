@@ -1,4 +1,4 @@
-import type { Task, CreateTaskData } from "../types/Task";
+import type { TaskData } from "../types/Task";
 
 const API_URL = "http://localhost:5500/api/v1";
 
@@ -14,7 +14,7 @@ export const getTask = async (id: number) => {
   return res.json();
 };
 
-export const createTask = async (task: CreateTaskData) => {
+export const createTask = async (task: TaskData) => {
   console.log(task);
   const res = await fetch(API_URL + "/tasks", {
     method: "POST",
@@ -31,9 +31,9 @@ export const createTask = async (task: CreateTaskData) => {
   return res.json();
 };
 
-export const updateTask = async (task: Task) => {
+export const updateTask = async (task: TaskData) => {
   const res = await fetch(API_URL + "/tasks/" + task.id, {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       ...task,
