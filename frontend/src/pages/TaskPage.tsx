@@ -9,7 +9,7 @@ import type { Task, TaskData } from "@/types/Task";
 
 export function TaskPage() {
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false);
-  const [taskToUpdate, setTaskToUpdate] = useState(null)
+  const [taskToUpdate, setTaskToUpdate] = useState<TaskData | null>(null)
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
